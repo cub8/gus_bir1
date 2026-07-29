@@ -13,6 +13,7 @@ Gem::Specification.new do |spec|
   spec.summary       = 'Rails GUS API library based on official REGON SOAP api.'
   spec.homepage      = 'https://github.com/espago/gus_bir1'
   spec.license       = 'MIT'
+  spec.required_ruby_version = '>= 3.3.0'
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
@@ -27,5 +28,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'simplecov'
 
-  spec.add_dependency 'savon', '~> 2.17'
+  spec.add_dependency 'savon', '~> 2.17.4'
 end

@@ -15,6 +15,10 @@ module GusBir1
 
     attr_accessor :production, :client_key, :log_level, :logging
 
+    def initialize
+      @logging = false
+    end
+
     def service_status
       v = get_value(Constants::PARAM_PARAM_NAME => Constants::PARAM_SERVICE_STATUS)
       Response::Simple.new(v, Constants::PARAM_SERVICE_STATUS)
@@ -106,7 +110,7 @@ module GusBir1
 
     def call(method, message)
       client = PUBL_OPERATIONS.include?(method) ? savon_client_publ : savon_client
-      client.call(method, message: message, soap_action: client.wsdl.soap_action(method))
+      client.call(method, message: message)
     end
 
     def set_session_id
@@ -143,9 +147,7 @@ module GusBir1
     end
 
     def build_savon_client(publ: false)
-      client = Savon.client(savon_options(publ: publ))
-      client.globals[:endpoint] ||= client.wsdl.endpoint
-      client
+      Savon.client(savon_options(publ: publ))
     end
 
     def savon_options(publ: false)
